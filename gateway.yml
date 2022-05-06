@@ -23,7 +23,7 @@ spring:
             - RewritePath=/appointment, /api/appointment/
 
     config:
-      enabled: false
+      enabled: true
 
 eureka:
   client:
