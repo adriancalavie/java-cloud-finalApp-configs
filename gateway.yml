@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/users/**
+          filters:
+            - RewritePath=/users, /api/users/
+        - id: appointment-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/appointment/**
+          filters:
+            - RewritePath=/appointment, /api/appointment/
+
+    config:
+      enabled: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
